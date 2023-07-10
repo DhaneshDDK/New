@@ -1,0 +1,37 @@
+.gradient-text {
+  background: linear-gradient(to bottom, #1FA2FF, #12D8FA, #A6FFCB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.textbg1{
+    background: linear-gradient(to bottom right, #FF512F, #F09819);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.textbg2{
+    background: linear-gradient(to bottom right, #E65C00, #F9D423);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.textbg3 {
+  background-image: linear-gradient(to bottom right, #833AB4, #FD1D1D, #FCB045);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.textbg4 {
+  background-image: linear-gradient(to bottom, #1FA2FF, #12D8FA, #A6FFCB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+.lable-style {
+  @apply text-[14px] text-richblack-5;
+}
+.form-style {
+  @apply rounded-lg bg-richblack-700 p-3 text-[16px] leading-[24px] text-richblack-5 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-richblack-400 focus:outline-none;
+}
+
