@@ -24,6 +24,8 @@ import { logout } from '../../Services/Operations/authAPI'
 import {AiFillHome} from 'react-icons/ai'
 import {FcAbout} from 'react-icons/fc'
 import {LuContact} from 'react-icons/lu'
+import {IoMdLogIn} from 'react-icons/io'
+import {SiGnuprivacyguard} from 'react-icons/si'
 
  
 const IniCatalog = ["Python", "Web development",];
@@ -209,6 +211,26 @@ const Navbar = () => {
              }
 
 
+
+
+             {
+                (user === null) && (
+                    <Link to="/login">
+                    <div className='flex gap-x-3 items-center'>  
+                                 <IoMdLogIn size={28} color='green'/>  <div className='border-b border-dotted border-pure-greys-100'> Login</div>  </div>
+                    </Link>
+                )
+            }
+
+            {
+                user === null && (
+                    <Link to="/signup">
+                    <div className='flex gap-x-3 items-center'>  
+                                 <SiGnuprivacyguard size={28} color='green'/>  <div className='border-b border-dotted border-pure-greys-100'>Sign Up</div>  </div>
+                   
+                    </Link>
+                )
+            }
              <div className='flex items-center gap-3 hover:text-caribbeangreen-200'  onClick={() =>
               {setConfirmationModal({
                 text1: "Are you sure?",
