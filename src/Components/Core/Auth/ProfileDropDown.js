@@ -27,7 +27,7 @@ const ProfileDropDown = ({setOpenProfile,navigate,dispatch}) => {
               }); }
             }> 
             <TbLogout size={25} color='green'/> <div className='border-b border-dotted border-pure-greys-100 w-[100%]'>Logout</div></div>
-          </div>  
+             </div>  
           {confirmationModal && <ConfirmationModal modalData={confirmationModal} />
           }
 

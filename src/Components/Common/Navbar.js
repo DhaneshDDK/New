@@ -16,6 +16,14 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import {MdArrowDropDown} from 'react-icons/md'
 import {MdArrowDropUp} from 'react-icons/md'
+import { useLocation } from 'react-router-dom'
+import {TbLogout} from 'react-icons/tb'
+import {CgProfile} from 'react-icons/cg'
+import ConfirmationModal from './ConfirmationModal'
+import { logout } from '../../Services/Operations/authAPI'
+import {AiFillHome} from 'react-icons/ai'
+import {FcAbout} from 'react-icons/fc'
+import {LuContact} from 'react-icons/lu'
 
  
 const IniCatalog = ["Python", "Web development",];
@@ -28,11 +36,14 @@ const Navbar = () => {
    const [isOpenProfile, setOpenProfile] = useState(false);
    const navigate = useNavigate();
    const dispatch = useDispatch();
+   const location = useLocation();
     // console.log(user); 
     // localStorage.clear();     console.log(user); 
 //    console.log(user)
 
    const [catalog, setCatalog] = useState(IniCatalog);
+   const [smMenu, setSmMenu] = useState(false);
+   const [confirmationModal, setConfirmationModal] = useState(null);  
 
     async function fetchFunc(){
         const result = await apiConnector('get', categories.CATEGORIES_API);
@@ -41,6 +52,10 @@ const Navbar = () => {
     useEffect(()=>{
           fetchFunc();
     },[])
+
+    useEffect(()=>{
+        setOpen(false)
+    },[location.pathname])
 
     useEffect(()=>{
         setOpenProfile(false);
@@ -151,13 +166,73 @@ const Navbar = () => {
           
             </div>
                 
-            <div className='md:hidden'> <Hamburger color='white'  toggled={isOpen} toggle={setOpen} /> 
-                    <div className={`h-[40em] md:hidden w-[90vw]  md:w-[80vw] mx-auto left-[50%] translate-y-3 rounded-lg translate-x-[-50%] bg-blue-300 z-10 absolute ${isOpen? "block" : "hidden"} `}></div>
+            <div className='md:hidden'> 
+                    <Hamburger color='white'  toggled={isOpen} toggle={setOpen} /> 
+                    <div className={`md:hidden flex flex-col px-10 gap-5 text-2xl items-start py-10  mx-auto right-[0%] translate-y-3 rounded-lg  bg-richblack-900 text-white z-10 absolute ${isOpen? "block" : "hidden"} `}>
+                       
+                    <Link onClick={()=>setOpenProfile(false)} to={'dashboard/my-profile'} className='flex items-center gap-3 hover:text-caribbeangreen-200'> <CgProfile size={30} color='green'/> <div className='border-b border-dotted border-pure-greys-100 '>My Profile</div></Link>
+
+
+                    {
+              NavbarLinks.map((link,idx)=>{
+                  return <div key={idx}>
+                  { (link.title === 'Catalog') ? (
+                    <div className= {`${clicked ? " text-yellow-25" : " text-richblack-25" } flex flex-col items-center gap-1 justify-start cursor-pointer relative group z-10 `}
+                    onClick={()=> setSmMenu(!smMenu)}> 
+
+                             <div className='flex gap-x-3 items-center'>  
+                                 <IoIosArrowDropdownCircle size={28} color='green'/>  <div className='border-b border-dotted border-pure-greys-100'> Catalog</div>  </div> 
+
+                           {  smMenu &&   <div className={`flex mt-3 flex-col gap-2 items-center border p-4 rounded-md bg-caribbeangreen-100 text-white`}>
+                              
+                                    {
+                                          catalog?.length > 0 && catalog?.map((link,idx)=> 
+                                              <Link onClick={()=>{ setClicked(true)}} key={idx} to={`/catalog/${String(link.name).split("-").join('').split(" ").join('')}`}>
+                                              {String(link.name).split("-").join(' ')}</Link>
+                                           ) 
+
+                                    }
+                                    
+                               </div>
+                           }
+                    
+                    </div>) : 
+                       <NavLink key={idx} onClick={()=>{ setClicked(false)}} to={link?.path}> <div className='flex items-center gap-3'>
+                        {link.title === 'Home' &&  <AiFillHome  size={28} color='green'/> }   
+                        {link.title === 'About Us' &&  <FcAbout  size={28} color='green'/> }   
+                        {link.title === 'Contact Us' &&  <LuContact  size={28} color='green'/> }   
+                        
+                         <div className='border-b border-dotted border-pure-greys-100'>   {link.title}  </div> </div></NavLink>
+                  }
+                  </div>
+                  })
+             }
+
+
+             <div className='flex items-center gap-3 hover:text-caribbeangreen-200'  onClick={() =>
+              {setConfirmationModal({
+                text1: "Are you sure?",
+                text2: "You will be logged out of your account.",
+                btn1Text: "Logout",
+                btn2Text: "Cancel",
+                btn1Handler: () => (logout(navigate,dispatch)),
+                btn2Handler: () => setConfirmationModal(null),
+              }); }
+            }> 
+            <TbLogout size={28} color='green'/> <div className='border-b border-dotted border-pure-greys-100'>Logout</div>
+          
+            </div>
+
+                    </div>
+
+              
+           
+                    
             </div>    
 
        </div>
 
-      
+       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
       
     </div>
   )

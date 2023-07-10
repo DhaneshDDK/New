@@ -21,7 +21,7 @@ const Dashboard = () => {
         <div className={`${ sidebar? "block" : "hidden" } md:block absolute md:relative`}>  <Sidebar /> </div> 
       <div className="h-[calc(100vh-4rem)] w-[calc(100vh-210px)] flex-1 overflow-auto">
         <div className="mx-auto w-11/12 max-w-[1000px] md:py-6">
-        <div className={`md:hidden ${isOpen? "ml-[200px]" : "-ml-3"} mb-3`} onClick={()=>dispatch(setSideBar(!isOpen))}> <Hamburger color='white' size={20}  toggled={isOpen} toggle={setOpen} /> </div>
+        <div className={`md:hidden ${isOpen? "ml-[200px]" : "-ml-3"} mb-3 w-fit`} onClick={()=>dispatch(setSideBar(!isOpen))}> <Hamburger color='white' size={20}  toggled={isOpen} toggle={setOpen} /> </div>
           <Outlet />
         </div>
       </div>
