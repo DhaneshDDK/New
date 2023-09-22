@@ -27,7 +27,7 @@ exports.resetPasswordToken = async (req,res) => {
             },  {new : true}
         )
 
-        const url = `http://localhost:3000/update-password/${token}`;
+        const url = `https://frontend-one-eta-41.vercel.app/update-password/${token}`;
 
           //sendMail
           try {
