@@ -92,10 +92,10 @@ const Navbar = () => {
                                 translate-x-[80%] translate-y-[-45%] h-6 w-6 rotate-45 rounded bg-richblack-5'>
                                 </div>
                                     {
-                                          catalog?.length > 0 && catalog?.map((link,idx)=> 
+                                          catalog?.length > 0 ? catalog?.map((link,idx)=> 
                                               <Link onClick={()=>{ setClicked(true)}} key={idx} to={`/catalog/${String(link.name).split("-").join('').split(" ").join('')}`}>
                                               {String(link.name).split("-").join(' ')}</Link>
-                                           ) 
+                                           ) : <div className = "text-white"> Loading.... </div>
 
                                     }
                                     
